@@ -1,9 +1,10 @@
-const { projects, clients } = require('../sampleData');
+const { projects, clients } = require('../sampleData.js');
 
-const { GraphQlObjectType } = require('graphql');
+const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLSchema } = require("graphql");
 
 
-const ClientType = new GraphQlObjectType({
+// Querying the client type
+const ClientType = new GraphQLObjectType({
     name: 'Client',
     fields: () => ({
         id: { type: GraphQLID },
@@ -12,14 +13,24 @@ const ClientType = new GraphQlObjectType({
         phone: { type: GraphQLString }
     })
 });
-
 // When we will be querying from client side, we will get the result.
-const RootQuery = new GraphQlObjectType({
+const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
         client: {
             type: ClientType,
             args: { id: { type: GraphQLID } },
-        }
-    }
+            resolve(parent, args) {
+                // higher order find function where basically it finds client id === args id.
+                return clients.find((client) => client.id === args.id);
+            },
+        },
+    },
+});
+
+// query field should always have the function name.
+module.exports = new GraphQLSchema({
+    query: RootQuery
 })
+
+
