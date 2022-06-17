@@ -1,4 +1,6 @@
-const { projects, clients } = require('../sampleData.js');
+
+// We are not dealing with sample data js file anymore!
+// const { projects, clients } = require('../sampleData.js');
 
 // Mongoose Models
 const Project = require('../models/Project');
@@ -49,8 +51,8 @@ const RootQuery = new GraphQLObjectType({
                 // return projects was used to return the array from
                 // projects.
                 // return projects;
-        // ===================================================
-            //  
+                // ===================================================
+                //  
                 return Project.find();
             }
         },
@@ -79,6 +81,17 @@ const RootQuery = new GraphQLObjectType({
         },
     },
 });
+
+// Mutations
+const mutation = new GraphQLObjectType({
+    name: 'Mutation',
+    fields: {
+
+    }
+});
+
+
+
 
 // query field should always have the function name.
 module.exports = new GraphQLSchema({
