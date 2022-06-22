@@ -6,21 +6,21 @@ const { graphqlHTTP } = require('express-graphql');
 const schema = require('./schema/schema');
 const connectDB = require('./config/db');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
-const app = express();
+const nebla = express();
 
 // Connection to DB
 connectDB();
 
-app.use(cors());
+nebla.use(cors());
 
-app.use(
+nebla.use(
     '/graphql',
     graphqlHTTP({
         schema,
         graphiql: process.env.NODE_ENV === 'development'
     }))
 
-app.listen(port, console.log(`Server running on port ${port}`));
+nebla.listen(port, console.log(`Server running on port ${port}`));
 
