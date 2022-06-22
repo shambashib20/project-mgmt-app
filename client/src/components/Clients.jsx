@@ -11,7 +11,7 @@ const GET_CLIENTS = gql`
   }
 `
 export default function Clients() {
-    const { loading, error } = useQuery(GET_CLIENTS);
+    const { loading, error, data } = useQuery(GET_CLIENTS);
 
     if (loading) return <p>Loading...</p>
     if (error) return <p>Something broke :(</p>
