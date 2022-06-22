@@ -137,7 +137,7 @@ const mutation = new GraphQLObjectType({
                             'new': { value: 'Not Started' },
                             'progress': { value: 'In Progress' },
                             'completed': { value: 'Completed' },
-                        }
+                        },
                     }),
                     defaultValue: 'Not Started',
                 },
@@ -151,8 +151,49 @@ const mutation = new GraphQLObjectType({
                     clientId: args.clientId,
                 });
                 return project.save();
-            }
-        }
+            },
+        },
+        deleteProject: {
+            type: ProjectType,
+            args: {
+                id: { type: GraphQLNonNull(GraphQLID) },
+            },
+            resolve(parent, args) {
+                return Project.findByIdAndRemove(args.id);
+            },
+        },
+        // Update a project
+        updateProject: {
+            type: ProjectType,
+            args: {
+                id: { type: GraphQLNonNull(GraphQLID) },
+                name: { type: GraphQLString },
+                description: { type: GraphQLString },
+                status: {
+                    type: new GraphQLEnumType({
+                        name: 'ProjectStatusUpdate',
+                        values: {
+                            new: { value: 'Not Started' },
+                            progress: { value: 'In Progress' },
+                            completed: { value: 'Completed' },
+                        },
+                    }),
+                },
+            },
+            resolve(parent, args) {
+                return Project.findByIdAndUpdate(
+                    args.id,
+                    {
+                        $set: {
+                            name: args.name,
+                            description: args.description,
+                            status: args.status,
+                        },
+                    },
+                    { new: true }
+                );
+            },
+        },
     },
 });
 
@@ -163,6 +204,6 @@ const mutation = new GraphQLObjectType({
 module.exports = new GraphQLSchema({
     query: RootQuery,
     mutation,
-})
+});
 
 
