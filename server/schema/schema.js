@@ -6,14 +6,15 @@
 const Project = require('../models/Project');
 const Client = require('../models/Client');
 
-const { GraphQLObjectType,
+const {
+    GraphQLObjectType,
     GraphQLID,
     GraphQLString,
     GraphQLSchema,
     GraphQLList,
     GraphQLNonNull,
     GraphQLEnumType
-} = require("graphql");
+} = require('graphql');
 
 // The Project Type
 const ProjectType = new GraphQLObjectType({
@@ -27,11 +28,11 @@ const ProjectType = new GraphQLObjectType({
             type: ClientType,
             resolve(parent, args) {
                 return Client.findById(parent.clientId);
-            }
-
-        }
-    })
+            },
+        },
+    }),
 });
+
 // Querying the client type
 const ClientType = new GraphQLObjectType({
     name: 'Client',
@@ -40,8 +41,9 @@ const ClientType = new GraphQLObjectType({
         name: { type: GraphQLString },
         email: { type: GraphQLString },
         phone: { type: GraphQLString }
-    })
+    }),
 });
+
 // When we will be querying from client side, we will get the result.
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -56,7 +58,7 @@ const RootQuery = new GraphQLObjectType({
                 // ===================================================
                 //  
                 return Project.find();
-            }
+            },
         },
         project: {
             type: ProjectType,
@@ -71,7 +73,7 @@ const RootQuery = new GraphQLObjectType({
             type: new GraphQLList(ClientType),
             resolve(parents, args) {
                 return Client.find();
-            }
+            },
         },
         client: {
             type: ClientType,
@@ -104,7 +106,7 @@ const mutation = new GraphQLObjectType({
                 });
 
                 return client.save();
-            }
+            },
         },
         // Delete a client
         deleteClient: {
@@ -113,8 +115,13 @@ const mutation = new GraphQLObjectType({
                 id: { type: GraphQLNonNull(GraphQLID) },
             },
             resolve(parent, args) {
+                Project.find({ clientID: args.id }).then((projects) => {
+                    projects.forEach((project) => {
+                        project.remove();
+                    });
+                });
                 return Client.findByIdAndRemove(args.id);
-            }
+            },
         },
 
         // Add a project
