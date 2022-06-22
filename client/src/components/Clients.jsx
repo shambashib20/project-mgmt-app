@@ -19,7 +19,19 @@ export default function Clients() {
     return (
         <>
             {!loading && !error && (
-                <h1>Clients</h1>
+                <table className='table table-hover mt-3'>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
             )}
         </>
     )
