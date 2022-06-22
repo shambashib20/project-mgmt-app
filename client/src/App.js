@@ -19,7 +19,10 @@ function App() {
         {/* <Router> */}
         <Header />
         <div className="container">
-          <Clients />
+          <div className='container'>
+            <Clients />
+          </div>
+
           {/* <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/projects/:id' element={<Project />} />

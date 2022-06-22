@@ -11,7 +11,7 @@ const GET_CLIENTS = gql`
   }
 `
 export default function Clients() {
-    const { loading, error } = useQuery(GET_CLIENTS);
+    const { loading, error, data } = useQuery(GET_CLIENTS);
 
     if (loading) return <p>Loading...</p>
     if (error) return <p>Something broke :(</p>
@@ -19,7 +19,19 @@ export default function Clients() {
     return (
         <>
             {!loading && !error && (
-                <h1>Clients</h1>
+                <table className='table table-hover mt-3'>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
             )}
         </>
     )
