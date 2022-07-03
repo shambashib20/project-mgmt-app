@@ -1,6 +1,6 @@
 # Project Management System
 
-An application designed to keep track of all projects assigned to us by all of our clients.
+An application designed to keep track of all projects assigned to us by all of our clients. Exclusively built for freelancing projects.
 
 ## Features
 
