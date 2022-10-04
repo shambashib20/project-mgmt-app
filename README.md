@@ -5,7 +5,7 @@ Will try making it.
 
 ## Features
 
-- Authentication [Work going on]
+
 - Backend [Schema, mutations, queries, resolvers done]
 - Frontend [Client work still going on]
 
