@@ -7,7 +7,7 @@ Will try making it.
 
 
 - Backend [Schema, mutations, queries, resolvers done]
-- Frontend [Client work still going on]
+- Frontend.
 
 ## Technologies used
 
